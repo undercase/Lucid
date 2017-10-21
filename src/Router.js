@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom';
 
 import Landing from './Landing';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
 
 export default class Router extends Component {
   render() {
@@ -13,6 +15,8 @@ export default class Router extends Component {
       <BrowserRouter>
         <div>
           <Route exact path="/" component={Landing} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={SignIn} />
         </div>
       </BrowserRouter>
     );

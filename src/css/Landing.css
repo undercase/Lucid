@@ -32,11 +32,7 @@ html {
   cursor: pointer;
 }
 
-.bottom a {
-  text-decoration: none;
-}
-
-.bottom:hover {
+.sky .wrapper .bottom:hover {
   opacity: 1;
 }
 

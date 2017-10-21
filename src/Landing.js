@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './css/Landing.css';
 
@@ -17,8 +18,15 @@ export default class Landing extends Component {
           <div className='title'>
             <h1>Lucid</h1>
             <h2><span className="flashing">productive</span> sleep</h2>
-            <div className="ghost button">start dreaming</div>
+            <Link to="/signup">
+              <div className="ghost button">start dreaming</div>
+            </Link>
           </div>
+          <Link to="/signin">
+            <div className="bottom">
+              <h6>Already dreaming? Click here to sign in</h6>
+            </div>
+          </Link>
         </div>
       </div>
     );
