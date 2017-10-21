@@ -5,19 +5,14 @@ import {
   Link
 } from 'react-router-dom';
 
-import Home from './Home.js';
-
-import SignUp from './SignUp.js';
-import SignIn from './SignIn.js';
+import Landing from './Landing';
 
 export default class Router extends Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={SignIn} />
+          <Route exact path="/" component={Landing} />
         </div>
       </BrowserRouter>
     );
