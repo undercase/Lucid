@@ -77,7 +77,16 @@ class Record extends Component {
           }
           {
             [0, 0, 0, 0].map((_, i) => (
-              <Card date="Yesterday" summary="Summary" key={i} />
+              <Card date="Yesterday" text="hello world. Hello! world," sentiment={{
+                score: 1,
+                comparative: 0.1111111111111111,
+                positive: [
+                  'hello'
+                ],
+                negative: [
+                  'world'
+                ]
+              }} key={i} />
             ))
           }
         </div>
