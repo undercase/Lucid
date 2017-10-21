@@ -1,0 +1,85 @@
+.record {
+    min-height: 100vh;
+    width: 100%;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Nunito Sans";
+}
+
+.record .container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 400px;
+    padding-top: 50vh;
+    margin-top: -32px;
+}
+
+.record .tell {
+    color: #fff;
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    padding: 20px;
+    font-family: "Lato";
+    font-size: 1.2em;
+    font-weight: 300;
+    opacity: 0.7;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 1em;
+    box-sizing: border-box;
+}
+
+.record .tell:hover {
+    opacity: 1;
+}
+
+.record .card {
+    background-color: white;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    padding: 15px 20px;
+    color: #505050;
+    margin-bottom: 1em;
+    opacity: .7;
+    transition: 0.2s ease-in-out;
+}
+
+.record .card:hover {
+    opacity: 1;
+}
+
+.record .date {
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.record .summary {
+    display: flex;
+    align-items: center;
+}
+
+.record .input {
+    flex: 1;
+    border: none;
+    font-family: inherit;
+    background-color: transparent;
+    outline: none;
+    resize: none;
+}
+
+.record .listening {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 3rem;
+    background-color: #6BA5D5;
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 3rem;
+}
