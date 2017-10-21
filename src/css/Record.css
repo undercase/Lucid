@@ -49,6 +49,11 @@
     transition: 0.2s ease-in-out;
 }
 
+.record .card.new {
+    opacity: 1;
+
+}
+
 .record .card:hover {
     opacity: 1;
 }
@@ -70,16 +75,29 @@
     background-color: transparent;
     outline: none;
     resize: none;
+    word-break: break-all;
+    height: 100%;
+    margin-right: 15px;
 }
 
 .record .listening {
+    flex-shrink: 0;
     position: relative;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 3rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 4rem;
     background-color: #6BA5D5;
     color: white;
     text-align: center;
-    font-size: 1.2em;
-    line-height: 3rem;
+    font-size: 1.75em;
+    line-height: 4rem;
+    transition: 0.2s ease-in-out;
+}
+
+.record .listening.stop {
+    background: red;
+}
+
+.record .listening:active {
+    transform: scale(.95);
 }

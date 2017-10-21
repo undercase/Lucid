@@ -8,6 +8,7 @@ class Record extends Component {
     super(props);
 
     this.state = {
+      date: '',
       writing: false,
       summary: '',
     }
@@ -22,12 +23,19 @@ class Record extends Component {
     this.props.startListening();
   }
 
+  submit() {
+    this.setState({ writing: false })
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ summary: nextProps.transcript });
+    if (/lucid$/i.test(nextProps.transcript)) {
+      this.submit();
+    }
   }
 
   render() {
-    const { writing, summary } = this.state;
+    const { writing, summary, date } = this.state;
     const { stopListening, listening, browserSupportsSpeechRecognition } = this.props;
 
     if (!browserSupportsSpeechRecognition) {
@@ -39,16 +47,22 @@ class Record extends Component {
         <div className="container">
           {
             writing ?
-              <div className="card">
+              <div className="card new">
+                {
+                  date &&
+                  <div className="date">
+                    {date}
+                  </div>
+                }
                 <div className="summary">
-                  <textarea className="input"
-                            onChange={({ target }) => this.setState({ summary: target.value })}>{summary}</textarea>
+                  <div contentEditable={!listening} className="input"
+                       onChange={({ target }) => this.setState({ summary: target.value })}>{summary}</div>
                   {
                     listening ?
-                      <div className="listening" onClick={stopListening}>
+                      <div className="listening stop" onClick={stopListening}>
                         <i class="fa fa-microphone" aria-hidden="true" />
                       </div> :
-                      <div className="listening" onClick={() => this.startListening()}>
+                      <div className="listening start" onClick={() => this.startListening()}>
                         <i class="fa fa-microphone" aria-hidden="true" />
                       </div>
                   }
