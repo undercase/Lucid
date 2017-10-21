@@ -14,11 +14,15 @@ export default class Home extends Component {
           <div id='title'>
             <h1>Lucid</h1>
             <h2><span className="flashing">productive</span> sleep</h2>
-            <div className="ghost button">start dreaming</div>
+            <Link to="/signup">
+              <div className="ghost button">start dreaming</div>
+            </Link>
           </div>
         </div>
         <div className="bottom">
-          <h6>Already dreaming? Click here to sign in</h6>
+          <Link to="/signin">
+            <h6>Already dreaming? Click here to sign in</h6>
+          </Link>
         </div>
       </div>
     );

@@ -1,0 +1,25 @@
+.shaded.wrapper {
+  background: #F6F6F6;
+  color: #505050;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.shaded.wrapper h1 {
+  font-size: 4em;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.shaded.wrapper h2 {
+  font-size: 2em;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  text-align: center;
+  line-height: 1.2em;
+}

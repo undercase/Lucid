@@ -32,11 +32,16 @@ html {
   cursor: pointer;
 }
 
+.bottom a {
+  text-decoration: none;
+}
+
 .bottom:hover {
   opacity: 1;
 }
 
 .bottom h6 {
+  color: #fff;
   font-weight: 500;
   font-size: 1.2em;
   margin: 0;
@@ -50,6 +55,8 @@ html {
 }
 
 .ghost.button {
+  color: #fff;
+
   display: inline-block;
   background: transparent;
   border: 1px solid #fff;
