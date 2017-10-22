@@ -13,7 +13,9 @@ class Record extends Component {
     this.state = {
       date: '',
       writing: false,
-      summary: '',
+      summary: 'Edit this text or press the microphone button',
+      lastSentiment: '',
+      started: false,
       dreams: []
     }
   }
@@ -25,6 +27,9 @@ class Record extends Component {
   startListening() {
     this.props.resetTranscript();
     this.props.startListening();
+    this.setState({
+      started: true
+    });
   }
 
   submit(dreamtext) {
@@ -37,13 +42,36 @@ class Record extends Component {
         'Content-Type': 'application/json'
       },
       body:JSON.stringify({text: dreamtext})
-    })
+    }).then(res => res.json())
+      .then(data => {
+        let dreams = this.state.dreams.slice();
+        dreams.unshift(<Card date="Today" sentiment={data.sentiment} text={data.text} />);
+        this.setState({
+          dreams
+        });
+      });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ summary: nextProps.transcript });
-    if (/lucid$/i.test(nextProps.transcript)) {
-      this.submit(nextProps.transcript);
+    if (this.state.started) {
+      this.setState({ summary: nextProps.transcript });
+      if (/lucid$/i.test(nextProps.transcript)) {
+        if (this.state.started) {
+          this.props.stopListening();
+          this.props.resetTranscript();
+          this.setState({
+            started: false
+          });
+          this.submit(nextProps.transcript.replace("lucid", ""));
+        }
+        this.setState({
+          summary: 'Edit this text or press the microphone button',
+        });
+      }
+    } else {
+      this.setState({
+        summary: 'Edit this text or press the microphone button',
+      });
     }
   }
 
@@ -101,7 +129,7 @@ class Record extends Component {
                   <div contentEditable={!listening} className="input"
                        onChange={({ target }) => this.setState({ summary: target.value })}>{summary}</div>
                   {
-                    listening ?
+                    this.state.started ?
                       <div className="listening stop" onClick={stopListening}>
                         <i class="fa fa-microphone" aria-hidden="true" />
                       </div> :
@@ -112,23 +140,16 @@ class Record extends Component {
                 </div>
                 <div className="save"></div>
               </div> :
-              <div className="tell" onClick={() => this.setState({ writing: true })}>Tell us about your dream last
-                night.
-              </div>
+              <div className="tell" onClick={() => this.setState({ writing: true })}>What did you dream about last night?</div>
           }
           {
-            [0, 0, 0, 0].map((_, i) => (
-              <Card date="Yesterday" text="hello world. Hello! world," sentiment={{
-                score: 1,
-                comparative: 0.1111111111111111,
-                positive: [
-                  'hello'
-                ],
-                negative: [
-                  'world'
-                ]
-              }} key={i} />
-            ))
+            this.state.dreams.map((dream, i) => {
+              return (
+                <div key={i}>
+                  {dream}
+                </div>
+              );
+            })
           }
         </div>
       </div>

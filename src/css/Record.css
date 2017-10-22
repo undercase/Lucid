@@ -148,13 +148,31 @@
 
 .record .date {
   font-weight: bold;
-  margin-bottom: 1em;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.record .score {
+  font-weight: 500;
+  font-style: italic;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .record .summary {
   display: flex;
   align-items: center;
-  white-space: pre;
+}
+
+.record .summary p {
+  padding: 0;
+  margin: 0;
+}
+
+.record .summary span {
+  display: inline-block;
 }
 
 .record .input {
@@ -164,7 +182,7 @@
   background-color: transparent;
   outline: none;
   resize: none;
-  word-break: break-all;
+  word-break: break-word;
   height: 100%;
   margin-right: 15px;
 }
@@ -189,5 +207,5 @@
 }
 
 .record .listening:active {
-  transform: scale(.95);
+  transform: scale(.85);
 }
