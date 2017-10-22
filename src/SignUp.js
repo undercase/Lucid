@@ -1,9 +1,53 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Route, Redirect } from 'react-router'
+
 import './css/SignUp.css';
 
 export default class SignUp extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: '',
+      password: '',
+      confirmpassword: ''
+    }
+  }
+
+  handleSubmit = (e) => {
+    console.log(this.state.user);
+    console.log(this.state.password);
+    var registration = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+            name:this.state.user,
+            password:this.state.password
+          })
+    };
+
+    fetch('/register', registration);
+
+    window.location = '/signin'
+  }
+
+  handleUserChange = (event) => {
+    this.setState({user: event.target.value});
+  }
+
+  handlePassChange = (event) => {
+    this.setState({password: event.target.value});
+  }
+
+  handleConfirmPassChange = (event) => {
+    this.setState({confirmpassword: event.target.value});
+  }
+
   render() {
     return (
       <div className="signup">
@@ -15,10 +59,10 @@ export default class SignUp extends Component {
           </div>
           <div className="right">
             <form>
-              <input type="text" placeholder="Email" />
-              <input type="password" placeholder="Password" />
-              <input type="password" placeholder="Confirm Password" />
-              <div className="ghost button">Sign Up</div>
+              <input value={this.state.user} type="text" placeholder="Email" onChange={this.handleUserChange}/>
+              <input value={this.state.password} type="password" placeholder="Password" onChange={this.handlePassChange}/>
+              <input value={this.state.confirmpassword} type="password" placeholder="Confirm Password" onChange={this.handleConfirmPassChange}/>
+              <div className="ghost button" onClick={this.handleSubmit}>Sign Up</div>
             </form>
           </div>
         </div>
@@ -26,4 +70,3 @@ export default class SignUp extends Component {
     );
   }
 }
-
