@@ -27,14 +27,23 @@ class Record extends Component {
     this.props.startListening();
   }
 
-  submit() {
+  submit(dreamtext) {
     this.setState({ writing: false })
+    console.log('sending dreamtext', dreamtext);
+    fetch('/dream', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({text: dreamtext})
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ summary: nextProps.transcript });
     if (/lucid$/i.test(nextProps.transcript)) {
-      this.submit();
+      this.submit(nextProps.transcript);
     }
   }
 
@@ -106,6 +115,20 @@ class Record extends Component {
               <div className="tell" onClick={() => this.setState({ writing: true })}>Tell us about your dream last
                 night.
               </div>
+          }
+          {
+            [0, 0, 0, 0].map((_, i) => (
+              <Card date="Yesterday" text="hello world. Hello! world," sentiment={{
+                score: 1,
+                comparative: 0.1111111111111111,
+                positive: [
+                  'hello'
+                ],
+                negative: [
+                  'world'
+                ]
+              }} key={i} />
+            ))
           }
         </div>
       </div>

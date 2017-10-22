@@ -138,6 +138,14 @@
   opacity: 1;
 }
 
+.record .card:hover .positive {
+  color: rgba(0, 0, 255, .6);
+}
+
+.record .card:hover .negative {
+  color: rgba(255, 0, 0, .6);
+}
+
 .record .date {
   font-weight: bold;
   margin-bottom: 1em;
@@ -146,6 +154,7 @@
 .record .summary {
   display: flex;
   align-items: center;
+  white-space: pre;
 }
 
 .record .input {
