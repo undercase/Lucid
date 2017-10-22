@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 export default class Card extends Component {
   render() {
@@ -8,6 +9,7 @@ export default class Card extends Component {
       <div className="card">
         <div className="date">
           {this.props.date} <span className="score">{sentiment.score}</span>
+          {moment(this.props.date).fromNow()}
         </div>
         <div className="summary">
           <p>
