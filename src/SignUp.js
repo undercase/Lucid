@@ -32,6 +32,8 @@ export default class SignUp extends Component {
     };
 
     fetch('/register', registration);
+
+    window.location = '/signin'
   }
 
   handleUserChange = (event) => {
@@ -60,9 +62,7 @@ export default class SignUp extends Component {
               <input value={this.state.user} type="text" placeholder="Email" onChange={this.handleUserChange}/>
               <input value={this.state.password} type="password" placeholder="Password" onChange={this.handlePassChange}/>
               <input value={this.state.confirmpassword} type="password" placeholder="Confirm Password" onChange={this.handleConfirmPassChange}/>
-              <Link to="/signin">
-                <div className="ghost button" onClick={this.handleSubmit}>Sign Up</div>
-              </Link>
+              <div className="ghost button" onClick={this.handleSubmit}>Sign Up</div>
             </form>
           </div>
         </div>
