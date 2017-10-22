@@ -17,12 +17,12 @@ export default class Landing extends Component {
         <div className="wrapper">
           <div className='title'>
             <h1>Lucid</h1>
-            <h2><span className="flashing">productive</span> sleep</h2>
+            <h2><span className="flashing">enhance your</span> sleep</h2>
             <Link to="/signup">
               <div className="ghost button">start dreaming</div>
             </Link>
           </div>
-          <Link to="/signin">
+          <Link to="/record">
             <div className="bottom">
               <h6>Already dreaming? Click here to sign in</h6>
             </div>
