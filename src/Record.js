@@ -23,10 +23,9 @@ class Record extends Component {
     }).then(res => res.json()).then(dreams => {
       let card_arr = Array.from(dreams).map(function (dream, i) {
         return <Card date={dream.date} text={dream.text} sentiment={dream.sentiment} key={i} />
-      })
-      console.log(card_arr);
+      });
       this.setState({
-        dreams: card_arr
+        dreams: card_arr.reverse()
       })
     });
   }

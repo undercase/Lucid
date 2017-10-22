@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 export default class Card extends Component {
   render() {
@@ -7,7 +8,7 @@ export default class Card extends Component {
     return (
       <div className="card">
         <div className="date">
-          {this.props.date}
+          {moment(this.props.date).fromNow()}
         </div>
         <div className="summary">
           {
