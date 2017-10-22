@@ -16,6 +16,18 @@ class Record extends Component {
       summary: '',
       dreams: []
     }
+    fetch('/dreams', {
+      method: 'GET',
+      credentials: 'same-origin',
+    }).then(res => res.json()).then(dreams => {
+      let card_arr = Array.from(dreams).map(function(dream, i) {
+        return <Card date={dream.date} text={dream.text} sentiment={dream.sentiment} key={i} />
+      })
+      console.log(card_arr);
+      this.setState({
+        dreams: card_arr
+      })
+    });
   }
 
   componentDidMount() {
@@ -36,6 +48,8 @@ class Record extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin',
+      
       body:JSON.stringify({text: dreamtext})
     })
   }
@@ -116,20 +130,7 @@ class Record extends Component {
                 night.
               </div>
           }
-          {
-            [0, 0, 0, 0].map((_, i) => (
-              <Card date="Yesterday" text="hello world. Hello! world," sentiment={{
-                score: 1,
-                comparative: 0.1111111111111111,
-                positive: [
-                  'hello'
-                ],
-                negative: [
-                  'world'
-                ]
-              }} key={i} />
-            ))
-          }
+          {this.state.dreams}
         </div>
       </div>
     );

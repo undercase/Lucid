@@ -31,6 +31,7 @@ export default class SignIn extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin',
 
       body: JSON.stringify({
             name:this.state.user,
