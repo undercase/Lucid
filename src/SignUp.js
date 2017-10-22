@@ -14,9 +14,17 @@ export default class SignUp extends Component {
   }
 
   handleSubmit = (e) => {
+    console.log(this.state.user);
+    console.log(this.state.password);
     var registration = {
       method: 'POST',
-      body: JSON.stringify({      name:this.state.user,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+            name:this.state.user,
             password:this.state.password
           })
     };
