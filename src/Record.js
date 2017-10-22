@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import SpeechRecognition from 'react-speech-recognition';
 
 import './css/Record.css';
@@ -13,6 +14,7 @@ class Record extends Component {
       date: '',
       writing: false,
       summary: '',
+      dreams: []
     }
   }
 
@@ -36,6 +38,18 @@ class Record extends Component {
     }
   }
 
+  clickOutside = () => {
+    if (this.state.writing) {
+      this.setState({
+        writing: false
+      });
+    }
+  }
+
+  clickInside = (e) => {
+    e.stopPropagation();
+  }
+
   render() {
     const { writing, summary, date } = this.state;
     const { stopListening, listening, browserSupportsSpeechRecognition } = this.props;
@@ -45,11 +59,29 @@ class Record extends Component {
     }
 
     return (
-      <div className="record">
+      <div className="record" onClick={this.clickOutside}>
+        <div className="nav">
+          <div className="wrapper">
+            <div className="left">
+              <Link to="/">
+                <h3>Lucid</h3>
+              </Link>
+            </div>
+            <div className="right">
+              <Link to="/logout">
+                <h4>Learn More</h4>
+              </Link>
+              <Link to="/about">
+                <h4 className="outlined">Sign Out</h4>
+              </Link>
+            </div>
+          </div>
+        </div>
         <div className="container">
+          <h1>Dream Log</h1>
           {
             writing ?
-              <div className="card new">
+              <div className="card new" onClick={this.clickInside}>
                 {
                   date &&
                   <div className="date">
@@ -74,11 +106,6 @@ class Record extends Component {
               <div className="tell" onClick={() => this.setState({ writing: true })}>Tell us about your dream last
                 night.
               </div>
-          }
-          {
-            [0, 0, 0, 0].map((_, i) => (
-              <Card date="Yesterday" summary="Summary" key={i} />
-            ))
           }
         </div>
       </div>
