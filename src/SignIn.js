@@ -39,6 +39,7 @@ export default class SignIn extends Component {
           })
     };
     fetch('/login', registration);
+    window.location = '/record'
   }
 
   render() {
@@ -50,9 +51,7 @@ export default class SignIn extends Component {
         <form>
           <input value={this.state.user} type="text" placeholder="Email" onChange={this.handleUserChange}/>
           <input value={this.state.password} type="password" placeholder="Password" onChange={this.handlePassChange}/>
-          <Link to="/record">
-            <div className="ghost button" onClick={this.handleSubmit}>Sign In</div>
-          </Link>
+          <div className="ghost button" onClick={this.handleSubmit}>Sign In</div>
 
         </form>
       </div>
