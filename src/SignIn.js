@@ -50,7 +50,10 @@ export default class SignIn extends Component {
         <form>
           <input value={this.state.user} type="text" placeholder="Email" onChange={this.handleUserChange}/>
           <input value={this.state.password} type="password" placeholder="Password" onChange={this.handlePassChange}/>
-          <div className="ghost button" onClick={this.handleSubmit}>Sign In</div>
+          <Link to="/record">
+            <div className="ghost button" onClick={this.handleSubmit}>Sign In</div>
+          </Link>
+
         </form>
       </div>
     );

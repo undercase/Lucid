@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Route, Redirect } from 'react-router'
+
 import './css/SignUp.css';
 
 export default class SignUp extends Component {
@@ -58,7 +60,9 @@ export default class SignUp extends Component {
               <input value={this.state.user} type="text" placeholder="Email" onChange={this.handleUserChange}/>
               <input value={this.state.password} type="password" placeholder="Password" onChange={this.handlePassChange}/>
               <input value={this.state.confirmpassword} type="password" placeholder="Confirm Password" onChange={this.handleConfirmPassChange}/>
-              <div className="ghost button" onClick={this.handleSubmit}>Sign Up</div>
+              <Link to="/signin">
+                <div className="ghost button" onClick={this.handleSubmit}>Sign Up</div>
+              </Link>
             </form>
           </div>
         </div>
