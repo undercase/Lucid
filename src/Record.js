@@ -25,14 +25,23 @@ class Record extends Component {
     this.props.startListening();
   }
 
-  submit() {
+  submit(dreamtext) {
     this.setState({ writing: false })
+    console.log('sending dreamtext', dreamtext);
+    fetch('/dream', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({text: dreamtext})
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ summary: nextProps.transcript });
     if (/lucid$/i.test(nextProps.transcript)) {
-      this.submit();
+      this.submit(nextProps.transcript);
     }
   }
 
