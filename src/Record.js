@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import SpeechRecognition from 'react-speech-recognition';
-import { Line } from 'react-chartjs-2';
+import { Scatter } from 'react-chartjs-2';
 
 import './css/Record.css';
 
@@ -23,11 +24,8 @@ class Record extends Component {
       method: 'GET',
       credentials: 'same-origin',
     }).then(res => res.json()).then(dreams => {
-      let card_arr = Array.from(dreams).map(function (dream, i) {
-        return <Card date={dream.date} text={dream.text} sentiment={dream.sentiment} key={i} />
-      });
       this.setState({
-        dreams: card_arr.reverse()
+        dreams: Array.from(dreams).reverse()
       })
     });
   }
@@ -58,7 +56,7 @@ class Record extends Component {
     }).then(res => res.json())
       .then(data => {
         let dreams = this.state.dreams.slice();
-        dreams.unshift(<Card date="Today" sentiment={data.sentiment} text={data.text} />);
+        dreams.unshift(data);
         this.setState({
           dreams
         });
@@ -68,14 +66,14 @@ class Record extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.state.started) {
       this.setState({ summary: nextProps.transcript });
-      if (/lucid$/i.test(nextProps.transcript)) {
+      if (/finish$/i.test(nextProps.transcript)) {
         if (this.state.started) {
           this.props.stopListening();
           this.props.resetTranscript();
           this.setState({
             started: false
           });
-          this.submit(nextProps.transcript.replace("lucid", ""));
+          this.submit(nextProps.transcript.replace("finish", ""));
         }
         this.setState({
           summary: 'Edit this text or press the microphone button',
@@ -155,12 +153,18 @@ class Record extends Component {
               </div> :
               <div className="tell" onClick={() => this.setState({ writing: true })}>What did you dream about last night?</div>
           }
+          {
+            this.state.dreams.length > 0 ?
           <div className="chart">
-            <Line data={{
-              labels: ["2 Months Ago", "1 Month Ago", "Two Weeks Ago", "Today"],
+            <Scatter data={{
               datasets: [{
                 label: "Happiness",
-                data: [-4, 7, -2, 12],
+                data: this.state.dreams.map(dream => {
+                  return {
+                    x: moment(dream.date).toDate(),
+                    y: dream.sentiment.score
+                  };
+                }),
                 backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',
@@ -177,19 +181,52 @@ class Record extends Component {
                   'rgba(153, 102, 255, 1)',
                   'rgba(255, 159, 64, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 1,
+                pointBorderWidth: 1,
+                pointBorderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                pointRadius: 1,
+                pointBorderWidth: 1,
+                pointBorderRadius: 5,
+                pointHitRadius: 10
               }]
             }} options={{
               scales: {
-                yAxes: [{
-                  ticks: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    displayFormats: {
+                     'millisecond': 'MMM DD',
+                     'second': 'MMM DD',
+                     'minute': 'MMM DD',
+                     'hour': 'MMM DD',
+                     'day': 'MMM DD',
+                     'week': 'MMM DD',
+                     'month': 'MMM DD',
+                     'quarter': 'MMM DD',
+                     'year': 'MMM DD',
+                    }
                   }
                 }]
               }
             }} width="600" height="250" />
           </div>
-          {this.state.dreams}
+            :
+            <div></div>
+          }
+          {
+            this.state.dreams.map((dream, i) => {
+              return <Card date={dream.date} sentiment={dream.sentiment} text={dream.text} key={i} />;
+            })
+          }
         </div>
+        }
       </div>
     );
   }

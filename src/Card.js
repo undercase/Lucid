@@ -8,8 +8,7 @@ export default class Card extends Component {
     return (
       <div className="card">
         <div className="date">
-          {this.props.date} <span className="score">{sentiment.score}</span>
-          {moment(this.props.date).fromNow()}
+          {moment(this.props.date).fromNow()} <span className="score">{sentiment.score}</span>
         </div>
         <div className="summary">
           <p>
